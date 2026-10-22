@@ -112,7 +112,7 @@ function App() {
           title="Detalhes do produto"
           description="Descrição, especificações técnicas e avaliações de quem já comprou."
         >
-          <ProductDetails product={selectedProduct} onAddToCart={handleAddToCart} onNotify={showToast} />
+          <ProductDetails product={selectedProduct} onAddToCart={handleAddToCart} />
         </Section>
 
         <Section
@@ -120,7 +120,7 @@ function App() {
           title="Solicitar troca"
           description="Recebeu um produto com defeito? Envie uma foto para abrir a solicitação."
         >
-          <ExchangeRequest onNotify={showToast} />
+          <ExchangeRequest />
         </Section>
 
         <Section id="duvidas" title="Perguntas frequentes" description="Prazos, pagamento, trocas e garantia.">

@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import ProgressBar from '../../components/ProgressBar/ProgressBar.jsx'
+import { useToast } from '../../hooks/useToast.js'
 import { formatFileSize } from '../../utils/format.js'
 import styles from './ExchangeRequest.module.css'
 
@@ -12,10 +13,11 @@ const TICK_INTERVAL_MS = 200
  * Usa a BARRA DE PROGRESSO para mostrar o andamento do envio
  * e avisa o resultado com TOASTS.
  *
- * Props:
- *  - onNotify: função para mostrar um toast — recebe { type, message }
+ * Não recebe props: as notificações vêm do contexto, pelo hook useToast.
  */
-function ExchangeRequest({ onNotify }) {
+function ExchangeRequest() {
+  const { showToast } = useToast()
+
   // State do envio:
   //  file     → arquivo escolhido (ou null)
   //  progress → 0 a 100
@@ -44,7 +46,7 @@ function ExchangeRequest({ onNotify }) {
       if (currentProgress === 100) {
         clearInterval(intervalId)
         setStatus('done')
-        onNotify({
+        showToast({
           type: 'success',
           message: 'Foto enviada. Vamos responder sua solicitação em até 2 dias úteis.',
         })
@@ -52,7 +54,7 @@ function ExchangeRequest({ onNotify }) {
     }, TICK_INTERVAL_MS)
 
     return () => clearInterval(intervalId)
-  }, [status, onNotify])
+  }, [status, showToast])
 
   function handleFileChange(event) {
     const selectedFile = event.target.files[0]
@@ -60,7 +62,7 @@ function ExchangeRequest({ onNotify }) {
 
     // Validações: tipo e tamanho do arquivo
     if (!ACCEPTED_TYPES.includes(selectedFile.type)) {
-      onNotify({
+      showToast({
         type: 'error',
         message: `"${selectedFile.name}" não é uma imagem aceita. Envie um arquivo JPG, PNG ou WEBP.`,
       })
@@ -69,7 +71,7 @@ function ExchangeRequest({ onNotify }) {
     }
 
     if (selectedFile.size > MAX_FILE_SIZE) {
-      onNotify({
+      showToast({
         type: 'error',
         message: `A foto tem ${formatFileSize(selectedFile.size)}. O limite é 5 MB.`,
       })
@@ -84,7 +86,7 @@ function ExchangeRequest({ onNotify }) {
 
   function startUpload() {
     if (!file) {
-      onNotify({ type: 'warning', message: 'Escolha uma foto do produto antes de enviar.' })
+      showToast({ type: 'warning', message: 'Escolha uma foto do produto antes de enviar.' })
       return
     }
     setProgress(0)
@@ -98,7 +100,7 @@ function ExchangeRequest({ onNotify }) {
 
   function handleCancel() {
     setStatus('canceled')
-    onNotify({ type: 'warning', message: 'Envio cancelado. A foto não foi enviada.' })
+    showToast({ type: 'warning', message: 'Envio cancelado. A foto não foi enviada.' })
   }
 
   function handleReset() {

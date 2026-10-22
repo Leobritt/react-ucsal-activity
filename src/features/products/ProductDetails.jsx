@@ -1,6 +1,7 @@
 import Dropdown from '../../components/Dropdown/Dropdown.jsx'
 import Tabs from '../../components/Tabs/Tabs.jsx'
 import { getCategoryLabel } from '../../data/products.js'
+import { useToast } from '../../hooks/useToast.js'
 import { formatCurrency } from '../../utils/format.js'
 import CategoryIcon from './CategoryIcon.jsx'
 import styles from './ProductDetails.module.css'
@@ -23,9 +24,12 @@ function Stars({ rating }) {
  * Props:
  *  - product: produto a exibir
  *  - onAddToCart: chamado com o produto ao clicar em "Adicionar ao carrinho"
- *  - onNotify: função para mostrar um toast — recebe { type, message }
+ *
+ * As notificações vêm do contexto (useToast), sem precisar de props.
  */
-function ProductDetails({ product, onAddToCart, onNotify }) {
+function ProductDetails({ product, onAddToCart }) {
+  const { showToast } = useToast()
+
   // Conteúdo de cada aba. Como "content" aceita JSX, cada aba tem seu próprio layout.
   const tabs = [
     {
@@ -75,9 +79,9 @@ function ProductDetails({ product, onAddToCart, onNotify }) {
         const link = `${window.location.origin}${window.location.pathname}#detalhes`
         try {
           await navigator.clipboard.writeText(link)
-          onNotify({ type: 'success', message: 'Link copiado.' })
+          showToast({ type: 'success', message: 'Link copiado.' })
         } catch {
-          onNotify({
+          showToast({
             type: 'error',
             message: 'Não foi possível copiar o link. Copie o endereço pela barra do navegador.',
           })
@@ -91,14 +95,14 @@ function ProductDetails({ product, onAddToCart, onNotify }) {
         const subject = encodeURIComponent(`Olha este produto: ${product.name}`)
         const body = encodeURIComponent(`${product.name} por ${formatCurrency(product.price)} na Circuito.`)
         window.location.href = `mailto:?subject=${subject}&body=${body}`
-        onNotify({ type: 'info', message: 'Abrindo seu aplicativo de e-mail.' })
+        showToast({ type: 'info', message: 'Abrindo seu aplicativo de e-mail.' })
       },
     },
     {
       value: 'price-alert',
       label: 'Avisar quando baixar o preço',
       onSelect: () => {
-        onNotify({ type: 'success', message: `Alerta criado. Avisaremos quando ${product.name} baixar de preço.` })
+        showToast({ type: 'success', message: `Alerta criado. Avisaremos quando ${product.name} baixar de preço.` })
       },
     },
   ]
