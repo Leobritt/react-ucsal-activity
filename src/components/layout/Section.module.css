@@ -1,0 +1,19 @@
+.section {
+  padding-block: var(--space-7);
+  border-top: 1px solid var(--color-line);
+}
+
+.heading {
+  margin-bottom: var(--space-5);
+}
+
+.description {
+  margin-top: var(--space-2);
+  color: var(--color-ink-soft);
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--space-8);
+  }
+}

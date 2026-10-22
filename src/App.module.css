@@ -1,0 +1,67 @@
+/* ---------- Abertura da página ---------- */
+.hero {
+  position: relative;
+  padding-block: var(--space-7) calc(var(--space-8) + 40px);
+  overflow: hidden;
+}
+
+.heroTitle {
+  max-width: 17ch;
+  font-size: var(--text-display);
+  font-weight: 800;
+  font-stretch: 125%; /* a largura extra da Archivo é a marca visual da loja */
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.heroText {
+  margin-top: var(--space-5);
+  font-size: var(--text-lg);
+  color: var(--color-ink-soft);
+  max-width: 52ch;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* Trilha de circuito no pé da abertura */
+.trace {
+  position: absolute;
+  left: 0;
+  bottom: var(--space-5);
+  width: 100%;
+  height: auto;
+}
+
+.trace path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.trace circle {
+  fill: var(--color-bg);
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-block: var(--space-8) calc(var(--space-8) + 56px);
+  }
+}
+
+/* Texto provisório até os componentes entrarem (Fase 2) */
+.placeholder {
+  padding: var(--space-5);
+  color: var(--color-ink-soft);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+}

@@ -1,0 +1,36 @@
+// Configuração do ambiente do GitHub Codespaces.
+// Ao criar um Codespace neste repositório, o GitHub lê este arquivo para:
+// usar uma imagem com Node.js, instalar as dependências automaticamente
+// e liberar a porta do servidor de desenvolvimento do Vite.
+{
+  "name": "Atividade React — UCSal",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+
+  // Roda uma única vez, logo depois que o Codespace é criado.
+  "postCreateCommand": "npm install",
+
+  // Porta padrão do Vite (npm run dev).
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "App React (Vite)",
+      "onAutoForward": "openBrowser"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Interface do VS Code em português (Brasil)
+        "MS-CEINTL.vscode-language-pack-pt-BR",
+        // Mostra os avisos do linter (oxlint) direto no editor
+        "oxc.oxc-vscode"
+      ],
+      "settings": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "files.eol": "\n"
+      }
+    }
+  }
+}
