@@ -44,10 +44,18 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  min-height: 44px;
   margin-left: auto;
   margin-right: var(--space-3);
+  padding: 0 var(--space-1);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  color: var(--color-surface);
+  text-decoration: none;
+}
+
+.cart:hover {
+  color: #f9c2dc;
 }
 
 .cartIcon {

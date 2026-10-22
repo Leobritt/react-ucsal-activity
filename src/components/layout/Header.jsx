@@ -52,15 +52,17 @@ function Header({ links }) {
           Circuito
         </Link>
 
-        <p className={styles.cart}>
+        {/* Link para a página do carrinho; o leitor de tela ouve "Carrinho: 2 itens" */}
+        <Link to="/carrinho" className={styles.cart} onClick={closeMenu}>
           <svg className={styles.cartIcon} viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 4h2l2.4 10.2a1.5 1.5 0 0 0 1.5 1.1h8.4a1.5 1.5 0 0 0 1.4-1l2-6.3H6.2" />
             <circle cx="9.5" cy="19.5" r="1.3" />
             <circle cx="17" cy="19.5" r="1.3" />
           </svg>
-          <span className="visually-hidden">Itens no carrinho:</span>
+          <span className="visually-hidden">Carrinho: </span>
           <span className={styles.cartCount}>{itemCount}</span>
-        </p>
+          <span className="visually-hidden"> {itemCount === 1 ? 'item' : 'itens'}</span>
+        </Link>
 
         <button
           type="button"
