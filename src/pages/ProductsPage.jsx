@@ -8,7 +8,8 @@ import ProductCatalog from '../features/products/ProductCatalog.jsx'
 function ProductsPage() {
   return (
     <Page title="Produtos" description="Filtre por categoria, ordene e navegue pelas páginas do catálogo.">
-      <ProductCatalog products={PRODUCTS} categories={CATEGORIES} />
+      {/* Os cartões ficam logo abaixo do h1 da página, então o nome de cada produto é h2 */}
+      <ProductCatalog products={PRODUCTS} categories={CATEGORIES} cardHeadingLevel={2} />
     </Page>
   )
 }

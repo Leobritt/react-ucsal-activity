@@ -33,8 +33,9 @@ const SORT_COMPARATORS = {
  * Props:
  *  - products: lista completa de produtos
  *  - categories: opções de categoria para o filtro
+ *  - cardHeadingLevel: nível do título de cada cartão (padrão: 3)
  */
-function ProductCatalog({ products, categories }) {
+function ProductCatalog({ products, categories, cardHeadingLevel = 3 }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const listTopRef = useRef(null)
 
@@ -119,7 +120,7 @@ function ProductCatalog({ products, categories }) {
           {pageProducts.map((product) => (
             // key: ajuda o React a saber qual cartão é qual entre as renderizações
             <li key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} headingLevel={cardHeadingLevel} />
             </li>
           ))}
         </ul>

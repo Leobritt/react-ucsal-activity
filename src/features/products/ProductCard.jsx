@@ -12,8 +12,10 @@ import styles from './ProductCard.module.css'
  *
  * Props:
  *  - product: objeto do produto
+ *  - headingLevel: nível do título com o nome (padrão: 3)
  */
-function ProductCard({ product }) {
+function ProductCard({ product, headingLevel = 3 }) {
+  const HeadingTag = `h${headingLevel}`
   const { addToCart } = useCart()
 
   const titleId = `product-${product.id}-title`
@@ -26,9 +28,9 @@ function ProductCard({ product }) {
 
       <div className={styles.body}>
         <p className={styles.category}>{getCategoryLabel(product.category)}</p>
-        <h3 id={titleId} className={styles.name}>
+        <HeadingTag id={titleId} className={styles.name}>
           {product.name}
-        </h3>
+        </HeadingTag>
         <p className={styles.summary}>{product.summary}</p>
 
         <div className={styles.meta}>

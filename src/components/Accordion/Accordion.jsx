@@ -9,13 +9,16 @@ import styles from './Accordion.module.css'
  * Props:
  *  - items: lista de { id, title, content }
  *  - defaultOpenId: id do item que começa aberto (opcional)
+ *  - headingLevel: nível dos títulos (padrão: 3). Use o nível logo abaixo
+ *    do título da seção onde o acordeão está, para não pular níveis.
  *
  * Acessibilidade:
- *  - cada título é um <button> dentro de um <h3>, então funciona com Tab, Enter e Espaço
+ *  - cada título é um <button> dentro de um <h2>/<h3>..., então funciona com Tab, Enter e Espaço
  *  - aria-expanded informa se o item está aberto
  *  - aria-controls liga o botão ao painel; o painel é um <section> nomeado pelo botão
  */
-function Accordion({ items, defaultOpenId = null }) {
+function Accordion({ items, defaultOpenId = null, headingLevel = 3 }) {
+  const HeadingTag = `h${headingLevel}` // "h2", "h3"... vira a tag do título
   // State: id do item aberto (null = todos fechados)
   const [openItemId, setOpenItemId] = useState(defaultOpenId)
 
@@ -37,7 +40,7 @@ function Accordion({ items, defaultOpenId = null }) {
 
         return (
           <div key={item.id} className={styles.item} data-open={isOpen}>
-            <h3 className={styles.heading}>
+            <HeadingTag className={styles.heading}>
               <button
                 type="button"
                 id={buttonId}
@@ -51,7 +54,7 @@ function Accordion({ items, defaultOpenId = null }) {
                   <path d="M5 8l5 5 5-5" />
                 </svg>
               </button>
-            </h3>
+            </HeadingTag>
 
             {/*
               O painel continua no HTML mesmo fechado: é isso que permite a animação.
