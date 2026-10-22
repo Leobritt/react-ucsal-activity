@@ -36,11 +36,17 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Desenho decorativo de uma trilha de circuito; escondido de leitores de tela */}
-        <svg className={styles.trace} viewBox="0 0 1200 80" aria-hidden="true">
-          <path d="M0 60 H420 L460 20 H900 L930 50 H1200" />
-          <circle cx="460" cy="20" r="7" />
-          <circle cx="930" cy="50" r="7" />
+        {/*
+          Desenho decorativo de uma trilha de circuito; escondido de leitores de tela.
+          preserveAspectRatio="none": a trilha estica na largura, mas a altura fica fixa
+          (definida no CSS), para não crescer em telas largas e cobrir os botões.
+          Os "pads" são traços de comprimento zero com ponta redonda: com
+          vector-effect: non-scaling-stroke eles continuam redondos mesmo esticados.
+        */}
+        <svg className={styles.trace} viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
+          <path className={styles.traceLine} d="M0 60 H420 L460 20 H900 L930 50 H1200" />
+          <path className={styles.padOuter} d="M460 20 h0.01 M930 50 h0.01" />
+          <path className={styles.padInner} d="M460 20 h0.01 M930 50 h0.01" />
         </svg>
       </section>
 

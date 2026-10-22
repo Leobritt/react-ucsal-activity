@@ -28,32 +28,46 @@
   margin-top: var(--space-6);
 }
 
-/* Trilha de circuito no pé da abertura */
+/* Trilha de circuito no pé da abertura: largura total, altura fixa */
 .trace {
   position: absolute;
   left: 0;
   bottom: var(--space-5);
   width: 100%;
-  height: auto;
+  height: 40px;
+  pointer-events: none; /* decorativa: nunca bloqueia cliques */
 }
 
 .trace path {
   fill: none;
-  stroke: var(--color-accent);
-  stroke-width: 3;
-  vector-effect: non-scaling-stroke;
+  vector-effect: non-scaling-stroke; /* espessura igual, mesmo com o desenho esticado */
 }
 
-.trace circle {
-  fill: var(--color-bg);
+.traceLine {
   stroke: var(--color-accent);
   stroke-width: 3;
-  vector-effect: non-scaling-stroke;
+}
+
+/* Pad = um ponto grande na cor da trilha com um ponto menor da cor do fundo por cima (anel) */
+.padOuter {
+  stroke: var(--color-accent);
+  stroke-width: 17;
+  stroke-linecap: round;
+}
+
+.padInner {
+  stroke: var(--color-bg);
+  stroke-width: 11;
+  stroke-linecap: round;
 }
 
 @media (min-width: 1024px) {
   .hero {
     padding-block: var(--space-8) calc(var(--space-8) + 56px);
+  }
+
+  .trace {
+    height: 56px;
   }
 }
 
