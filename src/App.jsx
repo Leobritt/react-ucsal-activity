@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayout.jsx'
 import ExchangePage from './pages/ExchangePage.jsx'
 import FaqPage from './pages/FaqPage.jsx'
 import HomePage from './pages/HomePage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 import ProductDetailPage from './pages/ProductDetailPage.jsx'
 import ProductsPage from './pages/ProductsPage.jsx'
 
@@ -26,6 +27,8 @@ function App() {
         <Route path="produtos/:productId" element={<ProductDetailPage />} />
         <Route path="trocas" element={<ExchangePage />} />
         <Route path="duvidas" element={<FaqPage />} />
+        {/* "*" pega qualquer endereço que não combinou com as rotas acima */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )
