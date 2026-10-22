@@ -28,9 +28,8 @@ const SORT_COMPARATORS = {
  * Props:
  *  - products: lista completa de produtos
  *  - categories: opções de categoria para o filtro
- *  - onViewDetails: repassado a cada cartão
  */
-function ProductCatalog({ products, categories, onViewDetails }) {
+function ProductCatalog({ products, categories }) {
   // State local: filtro, ordenação e página atual
   const [category, setCategory] = useState('all')
   const [sortOrder, setSortOrder] = useState('relevance')
@@ -99,7 +98,7 @@ function ProductCatalog({ products, categories, onViewDetails }) {
           {pageProducts.map((product) => (
             // key: ajuda o React a saber qual cartão é qual entre as renderizações
             <li key={product.id}>
-              <ProductCard product={product} onViewDetails={onViewDetails} />
+              <ProductCard product={product} />
             </li>
           ))}
         </ul>

@@ -1,0 +1,26 @@
+.page {
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.75rem);
+  font-weight: 800;
+  font-stretch: 118%;
+  letter-spacing: -0.015em;
+}
+
+.description {
+  margin-top: var(--space-2);
+  font-size: var(--text-lg);
+  color: var(--color-ink-soft);
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-top: var(--space-7);
+  }
+}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { getCategoryLabel } from '../../data/products.js'
 import { useCart } from '../../hooks/useCart.js'
 import { formatCurrency } from '../../utils/format.js'
@@ -6,14 +7,13 @@ import styles from './ProductCard.module.css'
 
 /**
  * Cartão de um produto no catálogo.
- * Não tem state: o produto chega por props e "Adicionar" usa
- * o carrinho global (useCart), sem depender do componente pai.
+ * Não tem state: o produto chega por props, "Ver detalhes" é um link
+ * para a página do produto e "Adicionar" usa o carrinho global (useCart).
  *
  * Props:
  *  - product: objeto do produto
- *  - onViewDetails: chamado com o id do produto em "Ver detalhes"
  */
-function ProductCard({ product, onViewDetails }) {
+function ProductCard({ product }) {
   const { addToCart } = useCart()
 
   const titleId = `product-${product.id}-title`
@@ -43,10 +43,10 @@ function ProductCard({ product, onViewDetails }) {
       </div>
 
       <div className={styles.actions}>
-        <button type="button" className="button button--secondary" onClick={() => onViewDetails(product.id)}>
+        <Link to={`/produtos/${product.id}`} className="button button--secondary">
           Ver detalhes
           <span className="visually-hidden"> de {product.name}</span>
-        </button>
+        </Link>
         <button type="button" className="button button--primary" onClick={() => addToCart(product)}>
           Adicionar
           <span className="visually-hidden"> {product.name} ao carrinho</span>

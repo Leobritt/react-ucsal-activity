@@ -1,0 +1,26 @@
+.breadcrumb {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  color: var(--color-ink-soft);
+}
+
+/* Barra entre os itens, desenhada pelo CSS (não é lida pelo leitor de tela) */
+.item + .item::before {
+  content: '/';
+  margin-right: var(--space-2);
+  color: var(--color-line);
+}
+
+.item a {
+  color: var(--color-ink-soft);
+}
+
+.item a:hover {
+  color: var(--color-accent);
+}

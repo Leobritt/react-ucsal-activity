@@ -1,126 +1,33 @@
-import { useRef, useState } from 'react'
-import Accordion from './components/Accordion/Accordion.jsx'
-import Footer from './components/layout/Footer.jsx'
-import Header from './components/layout/Header.jsx'
-import Section from './components/layout/Section.jsx'
-import { FAQ_ITEMS } from './data/faq.js'
-import { CATEGORIES, PRODUCTS } from './data/products.js'
-import ExchangeRequest from './features/exchange/ExchangeRequest.jsx'
-import ProductCatalog from './features/products/ProductCatalog.jsx'
-import ProductDetails from './features/products/ProductDetails.jsx'
-import styles from './App.module.css'
-
-// Links do menu principal: cada um aponta para o id de uma seção da página.
-const NAVIGATION_LINKS = [
-  { href: '#produtos', label: 'Produtos' },
-  { href: '#detalhes', label: 'Detalhes' },
-  { href: '#trocas', label: 'Trocas' },
-  { href: '#duvidas', label: 'Dúvidas' },
-]
-
-// O acordeão espera { id, title, content }; aqui adaptamos o formato das perguntas
-const FAQ_ACCORDION_ITEMS = FAQ_ITEMS.map((item) => ({
-  id: item.id,
-  title: item.question,
-  content: item.answer,
-}))
+import { Route, Routes } from 'react-router'
+import MainLayout from './layouts/MainLayout.jsx'
+import ExchangePage from './pages/ExchangePage.jsx'
+import FaqPage from './pages/FaqPage.jsx'
+import HomePage from './pages/HomePage.jsx'
+import ProductDetailPage from './pages/ProductDetailPage.jsx'
+import ProductsPage from './pages/ProductsPage.jsx'
 
 /**
- * Componente principal. Ele orquestra a página: monta o layout e guarda
- * o produto selecionado, passando os dados aos filhos via props.
+ * Componente principal. Orquestra a aplicação definindo as rotas:
+ * qual página aparece para cada endereço.
  *
- * Carrinho e notificações são state global (Context API): cada componente
- * que precisa deles usa os hooks useCart e useToast diretamente.
+ * Todas as rotas ficam dentro do MainLayout (cabeçalho + rodapé), e a página
+ * da rota atual aparece no <Outlet /> do layout.
+ *
+ * Carrinho e notificações são state global (Context API, ver main.jsx):
+ * cada componente que precisa deles usa os hooks useCart e useToast.
  */
 function App() {
-  const [selectedProductId, setSelectedProductId] = useState(PRODUCTS[0].id)
-  const detailsSectionRef = useRef(null)
-
-  const selectedProduct = PRODUCTS.find((product) => product.id === selectedProductId)
-
-  // ---------- Ações dos produtos ----------
-
-  function handleViewDetails(productId) {
-    setSelectedProductId(productId)
-    // Move o foco para a seção de detalhes: a tela rola até ela e
-    // o leitor de tela anuncia o novo conteúdo
-    detailsSectionRef.current?.focus()
-  }
-
   return (
-    <>
-      {/* Primeiro elemento focável: permite pular o menu usando o teclado */}
-      <a href="#conteudo" className="skip-link">
-        Pular para o conteúdo
-      </a>
-
-      <Header links={NAVIGATION_LINKS} />
-
-      <main id="conteudo" tabIndex={-1}>
-        <section id="inicio" aria-labelledby="hero-title" className={styles.hero}>
-          <div className="container">
-            <h1 id="hero-title" className={styles.heroTitle}>
-              Placas, sensores e ferramentas para tirar o projeto da protoboard.
-            </h1>
-            <p className={styles.heroText}>
-              A Circuito é uma loja fictícia de eletrônicos para estudantes e makers.
-              Escolha os componentes, compare as especificações e acompanhe sua troca
-              por aqui.
-            </p>
-            <div className={styles.heroActions}>
-              <a href="#produtos" className="button button--primary">
-                Ver produtos
-              </a>
-              <a href="#duvidas" className="button button--secondary">
-                Tirar dúvidas
-              </a>
-            </div>
-          </div>
-
-          {/* Desenho decorativo de uma trilha de circuito; escondido de leitores de tela */}
-          <svg className={styles.trace} viewBox="0 0 1200 80" aria-hidden="true">
-            <path d="M0 60 H420 L460 20 H900 L930 50 H1200" />
-            <circle cx="460" cy="20" r="7" />
-            <circle cx="930" cy="50" r="7" />
-          </svg>
-        </section>
-
-        <Section
-          id="produtos"
-          title="Produtos"
-          description="Filtre por categoria, ordene e navegue pelas páginas do catálogo."
-        >
-          <ProductCatalog
-            products={PRODUCTS}
-            categories={CATEGORIES}
-            onViewDetails={handleViewDetails}
-          />
-        </Section>
-
-        <Section
-          id="detalhes"
-          ref={detailsSectionRef}
-          title="Detalhes do produto"
-          description="Descrição, especificações técnicas e avaliações de quem já comprou."
-        >
-          <ProductDetails product={selectedProduct} />
-        </Section>
-
-        <Section
-          id="trocas"
-          title="Solicitar troca"
-          description="Recebeu um produto com defeito? Envie uma foto para abrir a solicitação."
-        >
-          <ExchangeRequest />
-        </Section>
-
-        <Section id="duvidas" title="Perguntas frequentes" description="Prazos, pagamento, trocas e garantia.">
-          <Accordion items={FAQ_ACCORDION_ITEMS} defaultOpenId={FAQ_ACCORDION_ITEMS[0].id} />
-        </Section>
-      </main>
-
-      <Footer credit="Loja fictícia criada para a atividade de React de Tópicos Avançados em Programação (UCSal, 2026.2)." />
-    </>
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="produtos" element={<ProductsPage />} />
+        {/* ":productId" é um parâmetro: /produtos/multimeter, /produtos/servo-9g... */}
+        <Route path="produtos/:productId" element={<ProductDetailPage />} />
+        <Route path="trocas" element={<ExchangePage />} />
+        <Route path="duvidas" element={<FaqPage />} />
+      </Route>
+    </Routes>
   )
 }
 

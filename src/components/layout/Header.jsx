@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router'
 import { useCart } from '../../hooks/useCart.js'
 import styles from './Header.module.css'
 
@@ -8,7 +9,7 @@ import styles from './Header.module.css'
  * a partir do tablet os links aparecem sempre (controlado pelo CSS).
  *
  * Props:
- *  - links: lista de { href, label } exibidos no menu
+ *  - links: lista de { to, label } exibidos no menu
  *
  * A quantidade do carrinho vem do CartContext (useCart): o cabeçalho e os
  * cartões de produto não têm relação direta, mas enxergam o mesmo carrinho.
@@ -44,12 +45,12 @@ function Header({ links }) {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
-        <a href="#inicio" className={styles.brand} onClick={closeMenu}>
+        <Link to="/" className={styles.brand} onClick={closeMenu}>
           <svg className={styles.brandMark} viewBox="0 0 32 32" aria-hidden="true">
             <path d="M3 16h8l2.5-6 4 13 2.5-7h9" />
           </svg>
           Circuito
-        </a>
+        </Link>
 
         <p className={styles.cart}>
           <svg className={styles.cartIcon} viewBox="0 0 24 24" aria-hidden="true">
@@ -80,10 +81,11 @@ function Header({ links }) {
         >
           <ul className={styles.navList}>
             {links.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className={styles.navLink} onClick={closeMenu}>
+              <li key={link.to}>
+                {/* NavLink marca o link da página atual com aria-current="page" */}
+                <NavLink to={link.to} className={styles.navLink} onClick={closeMenu}>
                   {link.label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>

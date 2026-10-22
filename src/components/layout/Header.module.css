@@ -160,6 +160,14 @@
   color: #f9c2dc;
 }
 
+/* Página atual: sublinhado na cor de destaque */
+.navLink[aria-current='page'] {
+  text-decoration: underline;
+  text-decoration-color: #f06aa8;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.45em;
+}
+
 /* Tablet e desktop: links sempre visíveis, botão do menu escondido */
 @media (min-width: 600px) {
   .menuButton {

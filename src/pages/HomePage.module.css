@@ -56,3 +56,27 @@
     padding-block: var(--space-8) calc(var(--space-8) + 56px);
   }
 }
+
+/* ---------- Mais bem avaliados ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.more {
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

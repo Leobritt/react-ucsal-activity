@@ -24,10 +24,14 @@ function Stars({ rating }) {
  *
  * Props:
  *  - product: produto a exibir
+ *  - headingLevel: nível do título com o nome do produto (padrão: 2).
+ *    Na página do produto ele é o título principal, então vira h1.
  *
  * Carrinho e notificações vêm dos contextos (useCart e useToast), sem props.
  */
-function ProductDetails({ product }) {
+function ProductDetails({ product, headingLevel = 2 }) {
+  // Componente com nome dinâmico: "h1", "h2"... (precisa começar com letra maiúscula no JSX)
+  const HeadingTag = `h${headingLevel}`
   const { showToast } = useToast()
   const { addToCart } = useCart()
 
@@ -77,7 +81,7 @@ function ProductDetails({ product }) {
       value: 'copy-link',
       label: 'Copiar link',
       onSelect: async () => {
-        const link = `${window.location.origin}${window.location.pathname}#detalhes`
+        const link = window.location.href // endereço da página deste produto
         try {
           await navigator.clipboard.writeText(link)
           showToast({ type: 'success', message: 'Link copiado.' })
@@ -116,9 +120,9 @@ function ProductDetails({ product }) {
         </div>
 
         <p className={styles.category}>{getCategoryLabel(product.category)}</p>
-        <h3 id="product-details-name" className={styles.name}>
+        <HeadingTag id="product-details-name" className={styles.name}>
           {product.name}
-        </h3>
+        </HeadingTag>
         <p className={styles.rating}>
           <Stars rating={product.rating} /> {product.rating.toLocaleString('pt-BR')}
         </p>
