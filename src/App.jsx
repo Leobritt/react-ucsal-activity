@@ -8,7 +8,7 @@ import { CATEGORIES, PRODUCTS } from './data/products.js'
 import ExchangeRequest from './features/exchange/ExchangeRequest.jsx'
 import ProductCatalog from './features/products/ProductCatalog.jsx'
 import ProductDetails from './features/products/ProductDetails.jsx'
-import { useToast } from './hooks/useToast.js'
+import { useCart } from './hooks/useCart.js'
 import styles from './App.module.css'
 
 // Links do menu principal: cada um aponta para o id de uma seção da página.
@@ -28,25 +28,19 @@ const FAQ_ACCORDION_ITEMS = FAQ_ITEMS.map((item) => ({
 
 /**
  * Componente principal. Ele orquestra a página:
- *  - guarda o state compartilhado entre seções (produto selecionado e carrinho);
- *  - passa esses dados e as funções que os alteram para os filhos via props.
+ *  - guarda o produto selecionado e passa os dados aos filhos via props;
+ *  - lê o carrinho do CartContext (Context API), pelo hook useCart.
  *
- * As notificações agora vêm do ToastContext (Context API), pelo hook useToast.
+ * As notificações vêm do ToastContext; o próprio carrinho avisa ao adicionar um item.
  */
 function App() {
   const [selectedProductId, setSelectedProductId] = useState(PRODUCTS[0].id)
-  const [cartItems, setCartItems] = useState([])
   const detailsSectionRef = useRef(null)
-  const { showToast } = useToast()
+  const { itemCount, addToCart } = useCart()
 
   const selectedProduct = PRODUCTS.find((product) => product.id === selectedProductId)
 
   // ---------- Ações dos produtos ----------
-
-  function handleAddToCart(product) {
-    setCartItems((current) => [...current, product.id])
-    showToast({ type: 'success', message: `Adicionado ao carrinho: ${product.name}.` })
-  }
 
   function handleViewDetails(productId) {
     setSelectedProductId(productId)
@@ -62,7 +56,7 @@ function App() {
         Pular para o conteúdo
       </a>
 
-      <Header links={NAVIGATION_LINKS} cartCount={cartItems.length} />
+      <Header links={NAVIGATION_LINKS} cartCount={itemCount} />
 
       <main id="conteudo" tabIndex={-1}>
         <section id="inicio" aria-labelledby="hero-title" className={styles.hero}>
@@ -102,7 +96,7 @@ function App() {
             products={PRODUCTS}
             categories={CATEGORIES}
             onViewDetails={handleViewDetails}
-            onAddToCart={handleAddToCart}
+            onAddToCart={addToCart}
           />
         </Section>
 
@@ -112,7 +106,7 @@ function App() {
           title="Detalhes do produto"
           description="Descrição, especificações técnicas e avaliações de quem já comprou."
         >
-          <ProductDetails product={selectedProduct} onAddToCart={handleAddToCart} />
+          <ProductDetails product={selectedProduct} onAddToCart={addToCart} />
         </Section>
 
         <Section
