@@ -158,7 +158,7 @@ a:hover {
   border-radius: var(--radius-control);
 }
 
-/* Seções e o <main> recebem foco só por código (tabindex="-1"); não precisam de anel */
+/* O <main> e os títulos recebem foco só por código (tabindex="-1"); não precisam de anel */
 [tabindex='-1']:focus {
   outline: none;
   box-shadow: none;

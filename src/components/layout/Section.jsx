@@ -10,16 +10,12 @@ import styles from './Section.module.css'
  *  - title: título da seção (h2)
  *  - description: texto curto abaixo do título (opcional)
  *  - children: conteúdo da seção
- *  - ref: referência ao <section> (no React 19, ref chega como uma prop comum)
- *
- * tabIndex={-1} deixa o App mover o foco para a seção via código
- * (ex.: ao clicar em "Ver detalhes"), sem colocá-la na ordem do Tab.
  */
-function Section({ id, title, description, children, ref }) {
+function Section({ id, title, description, children }) {
   const titleId = `${id}-title`
 
   return (
-    <section id={id} ref={ref} tabIndex={-1} aria-labelledby={titleId} className={styles.section}>
+    <section id={id} aria-labelledby={titleId} className={styles.section}>
       <div className="container">
         <header className={styles.heading}>
           <h2 id={titleId}>{title}</h2>
