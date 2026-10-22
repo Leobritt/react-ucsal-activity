@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router'
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary.jsx'
 import Footer from '../components/layout/Footer.jsx'
 import Header from '../components/layout/Header.jsx'
 
@@ -47,7 +48,13 @@ function MainLayout() {
       <Header links={NAVIGATION_LINKS} />
 
       <main id="conteudo" tabIndex={-1} ref={mainRef}>
-        <Outlet />
+        {/*
+          Se a página quebrar, o cabeçalho e o rodapé continuam funcionando.
+          key={pathname}: a cada página nova, um ErrorBoundary novo (sem o erro anterior).
+        */}
+        <ErrorBoundary key={pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
 
       <Footer credit="Loja fictícia criada para a atividade de React de Tópicos Avançados em Programação (UCSal, 2026.2)." />
