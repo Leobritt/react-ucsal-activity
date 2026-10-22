@@ -20,7 +20,7 @@ Aplicação web responsiva de uma loja fictícia de eletrônicos, com seis compo
 
 ## Como rodar no computador
 
-Requer Node.js 20.19+ ou 22.12+.
+Requer Node.js 22.22 ou mais recente (exigência do React Router 8).
 
 ```bash
 npm install
