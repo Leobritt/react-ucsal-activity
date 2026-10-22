@@ -1,0 +1,64 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 640px;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-weight: 700;
+}
+
+.hint {
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+.input {
+  max-width: 100%;
+  font-size: var(--text-sm);
+}
+
+/* Estiliza o botão nativo "Escolher arquivo" sem trocar o input por um falso */
+.input::file-selector-button {
+  min-height: 44px;
+  margin-right: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.input::file-selector-button:hover {
+  border-color: var(--color-ink);
+}
+
+.fileInfo {
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+@media (min-width: 600px) {
+  .form {
+    padding: var(--space-6);
+  }
+}

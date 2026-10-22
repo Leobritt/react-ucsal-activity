@@ -1,0 +1,112 @@
+/* ---------- Área das notificações ---------- */
+
+/* Celular: no rodapé, ocupando a largura da tela */
+.container {
+  position: fixed;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none; /* a área vazia não bloqueia cliques na página */
+}
+
+/* Tablet e desktop: canto inferior direito, com largura fixa */
+@media (min-width: 600px) {
+  .container {
+    left: auto;
+    right: var(--space-5);
+    bottom: var(--space-5);
+    width: 380px;
+  }
+}
+
+/* ---------- Notificação ---------- */
+.toast {
+  --toast-color: var(--color-info);
+  --toast-soft: var(--color-info-soft);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: 5px solid var(--toast-color);
+  border-radius: var(--radius-control);
+  box-shadow: 0 14px 30px -14px rgb(23 32 58 / 0.45);
+  pointer-events: auto;
+  animation: toast-in 0.22s ease-out;
+}
+
+.toast[data-type='success'] {
+  --toast-color: var(--color-success);
+  --toast-soft: var(--color-success-soft);
+}
+
+.toast[data-type='error'] {
+  --toast-color: var(--color-error);
+  --toast-soft: var(--color-error-soft);
+}
+
+.toast[data-type='warning'] {
+  --toast-color: var(--color-warning);
+  --toast-soft: var(--color-warning-soft);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* Ícone + cor: o tipo não depende só da cor para ser entendido */
+.icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-top: 2px;
+  color: var(--toast-color);
+  background: var(--toast-soft);
+  border-radius: 50%;
+}
+
+.icon svg,
+.close svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.message {
+  flex: 1;
+  align-self: center;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  color: var(--color-ink-soft);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-control);
+}
+
+.close:hover {
+  color: var(--color-ink);
+  background: var(--color-bg);
+}

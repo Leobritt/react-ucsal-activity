@@ -8,8 +8,9 @@ import styles from './Header.module.css'
  *
  * Props:
  *  - links: lista de { href, label } exibidos no menu
+ *  - cartCount: quantidade de itens no carrinho
  */
-function Header({ links }) {
+function Header({ links, cartCount = 0 }) {
   // State local: o menu do celular está aberto?
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -44,6 +45,16 @@ function Header({ links }) {
           </svg>
           Circuito
         </a>
+
+        <p className={styles.cart}>
+          <svg className={styles.cartIcon} viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 4h2l2.4 10.2a1.5 1.5 0 0 0 1.5 1.1h8.4a1.5 1.5 0 0 0 1.4-1l2-6.3H6.2" />
+            <circle cx="9.5" cy="19.5" r="1.3" />
+            <circle cx="17" cy="19.5" r="1.3" />
+          </svg>
+          <span className="visually-hidden">Itens no carrinho:</span>
+          <span className={styles.cartCount}>{cartCount}</span>
+        </p>
 
         <button
           type="button"

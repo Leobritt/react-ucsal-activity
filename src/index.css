@@ -158,6 +158,12 @@ a:hover {
   border-radius: var(--radius-control);
 }
 
+/* Seções e o <main> recebem foco só por código (tabindex="-1"); não precisam de anel */
+[tabindex='-1']:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* Respeita quem pediu ao sistema operacional para reduzir animações */
 @media (prefers-reduced-motion: reduce) {
   *,

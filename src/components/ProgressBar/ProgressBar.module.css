@@ -1,0 +1,47 @@
+.progress {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums; /* números com a mesma largura: o texto não "pula" */
+}
+
+.track {
+  height: 12px;
+  overflow: hidden;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+}
+
+.fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: inherit;
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.fill[data-tone='success'] {
+  background: var(--color-success);
+}
+
+.fill[data-tone='error'] {
+  background: var(--color-error);
+}

@@ -1,0 +1,55 @@
+.catalog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Celular: filtros um embaixo do outro, ocupando a largura toda */
+.toolbar {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.count {
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+/* Grade de produtos: 1 coluna no celular, 2 no tablet, 4 no desktop */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.empty {
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-panel);
+}
+
+@media (min-width: 600px) {
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* O texto de contagem vai para a direita */
+  .count {
+    margin-left: auto;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

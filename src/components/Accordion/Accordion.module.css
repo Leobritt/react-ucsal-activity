@@ -1,0 +1,76 @@
+.accordion {
+  max-width: 820px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-line);
+}
+
+.heading {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-weight: inherit;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-panel);
+}
+
+.trigger:hover {
+  color: var(--color-accent);
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s ease;
+}
+
+.item[data-open='true'] .icon {
+  transform: rotate(180deg);
+}
+
+/*
+  Transição suave de altura: o painel é um grid com uma linha que vai de 0fr
+  (altura zero) até 1fr (altura do conteúdo). Diferente de height: auto,
+  grid-template-rows pode ser animado.
+*/
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.3s ease, visibility 0.3s;
+}
+
+.panel[data-open='true'] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+}
+
+.panelInner {
+  overflow: hidden;
+}
+
+.content {
+  padding: 0 var(--space-5) var(--space-5);
+  color: var(--color-ink-soft);
+}

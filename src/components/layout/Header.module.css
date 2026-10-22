@@ -39,6 +39,36 @@
   stroke-linejoin: round;
 }
 
+/* ---------- Carrinho ---------- */
+.cart {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: auto;
+  margin-right: var(--space-3);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cartIcon {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cartCount {
+  min-width: 1.6em;
+  padding: 0 var(--space-1);
+  text-align: center;
+  color: var(--color-ink);
+  background: #f9c2dc;
+  border-radius: 999px;
+}
+
 /* ---------- Botão do menu (só no celular) ---------- */
 .menuButton {
   display: inline-flex;
@@ -151,5 +181,18 @@
 
   .navLink {
     padding: var(--space-2) 0;
+  }
+
+  /* No HTML o carrinho vem antes do menu (ordem do Tab no celular);
+     no tablet/desktop o "order" coloca os links antes do carrinho na tela */
+  .nav {
+    order: 1;
+    margin-left: auto;
+  }
+
+  .cart {
+    order: 2;
+    margin-left: var(--space-5);
+    margin-right: 0;
   }
 }
