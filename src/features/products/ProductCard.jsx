@@ -1,19 +1,21 @@
 import { getCategoryLabel } from '../../data/products.js'
+import { useCart } from '../../hooks/useCart.js'
 import { formatCurrency } from '../../utils/format.js'
 import CategoryIcon from './CategoryIcon.jsx'
 import styles from './ProductCard.module.css'
 
 /**
  * Cartão de um produto no catálogo.
- * Não tem state: tudo o que mostra chega por props, e os cliques
- * são repassados ao componente pai pelos callbacks.
+ * Não tem state: o produto chega por props e "Adicionar" usa
+ * o carrinho global (useCart), sem depender do componente pai.
  *
  * Props:
  *  - product: objeto do produto
  *  - onViewDetails: chamado com o id do produto em "Ver detalhes"
- *  - onAddToCart: chamado com o produto em "Adicionar ao carrinho"
  */
-function ProductCard({ product, onViewDetails, onAddToCart }) {
+function ProductCard({ product, onViewDetails }) {
+  const { addToCart } = useCart()
+
   const titleId = `product-${product.id}-title`
 
   return (
@@ -45,7 +47,7 @@ function ProductCard({ product, onViewDetails, onAddToCart }) {
           Ver detalhes
           <span className="visually-hidden"> de {product.name}</span>
         </button>
-        <button type="button" className="button button--primary" onClick={() => onAddToCart(product)}>
+        <button type="button" className="button button--primary" onClick={() => addToCart(product)}>
           Adicionar
           <span className="visually-hidden"> {product.name} ao carrinho</span>
         </button>

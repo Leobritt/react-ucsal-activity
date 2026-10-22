@@ -1,6 +1,7 @@
 import Dropdown from '../../components/Dropdown/Dropdown.jsx'
 import Tabs from '../../components/Tabs/Tabs.jsx'
 import { getCategoryLabel } from '../../data/products.js'
+import { useCart } from '../../hooks/useCart.js'
 import { useToast } from '../../hooks/useToast.js'
 import { formatCurrency } from '../../utils/format.js'
 import CategoryIcon from './CategoryIcon.jsx'
@@ -23,12 +24,12 @@ function Stars({ rating }) {
  *
  * Props:
  *  - product: produto a exibir
- *  - onAddToCart: chamado com o produto ao clicar em "Adicionar ao carrinho"
  *
- * As notificações vêm do contexto (useToast), sem precisar de props.
+ * Carrinho e notificações vêm dos contextos (useCart e useToast), sem props.
  */
-function ProductDetails({ product, onAddToCart }) {
+function ProductDetails({ product }) {
   const { showToast } = useToast()
+  const { addToCart } = useCart()
 
   // Conteúdo de cada aba. Como "content" aceita JSX, cada aba tem seu próprio layout.
   const tabs = [
@@ -124,7 +125,7 @@ function ProductDetails({ product, onAddToCart }) {
         <p className={styles.price}>{formatCurrency(product.price)}</p>
 
         <div className={styles.actions}>
-          <button type="button" className="button button--primary" onClick={() => onAddToCart(product)}>
+          <button type="button" className="button button--primary" onClick={() => addToCart(product)}>
             Adicionar ao carrinho
           </button>
           <Dropdown label="Compartilhar" options={shareOptions} />

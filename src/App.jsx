@@ -8,7 +8,6 @@ import { CATEGORIES, PRODUCTS } from './data/products.js'
 import ExchangeRequest from './features/exchange/ExchangeRequest.jsx'
 import ProductCatalog from './features/products/ProductCatalog.jsx'
 import ProductDetails from './features/products/ProductDetails.jsx'
-import { useCart } from './hooks/useCart.js'
 import styles from './App.module.css'
 
 // Links do menu principal: cada um aponta para o id de uma seção da página.
@@ -27,16 +26,15 @@ const FAQ_ACCORDION_ITEMS = FAQ_ITEMS.map((item) => ({
 }))
 
 /**
- * Componente principal. Ele orquestra a página:
- *  - guarda o produto selecionado e passa os dados aos filhos via props;
- *  - lê o carrinho do CartContext (Context API), pelo hook useCart.
+ * Componente principal. Ele orquestra a página: monta o layout e guarda
+ * o produto selecionado, passando os dados aos filhos via props.
  *
- * As notificações vêm do ToastContext; o próprio carrinho avisa ao adicionar um item.
+ * Carrinho e notificações são state global (Context API): cada componente
+ * que precisa deles usa os hooks useCart e useToast diretamente.
  */
 function App() {
   const [selectedProductId, setSelectedProductId] = useState(PRODUCTS[0].id)
   const detailsSectionRef = useRef(null)
-  const { itemCount, addToCart } = useCart()
 
   const selectedProduct = PRODUCTS.find((product) => product.id === selectedProductId)
 
@@ -56,7 +54,7 @@ function App() {
         Pular para o conteúdo
       </a>
 
-      <Header links={NAVIGATION_LINKS} cartCount={itemCount} />
+      <Header links={NAVIGATION_LINKS} />
 
       <main id="conteudo" tabIndex={-1}>
         <section id="inicio" aria-labelledby="hero-title" className={styles.hero}>
@@ -96,7 +94,6 @@ function App() {
             products={PRODUCTS}
             categories={CATEGORIES}
             onViewDetails={handleViewDetails}
-            onAddToCart={addToCart}
           />
         </Section>
 
@@ -106,7 +103,7 @@ function App() {
           title="Detalhes do produto"
           description="Descrição, especificações técnicas e avaliações de quem já comprou."
         >
-          <ProductDetails product={selectedProduct} onAddToCart={addToCart} />
+          <ProductDetails product={selectedProduct} />
         </Section>
 
         <Section

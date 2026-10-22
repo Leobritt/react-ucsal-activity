@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useCart } from '../../hooks/useCart.js'
 import styles from './Header.module.css'
 
 /**
@@ -8,9 +9,13 @@ import styles from './Header.module.css'
  *
  * Props:
  *  - links: lista de { href, label } exibidos no menu
- *  - cartCount: quantidade de itens no carrinho
+ *
+ * A quantidade do carrinho vem do CartContext (useCart): o cabeçalho e os
+ * cartões de produto não têm relação direta, mas enxergam o mesmo carrinho.
  */
-function Header({ links, cartCount = 0 }) {
+function Header({ links }) {
+  const { itemCount } = useCart()
+
   // State local: o menu do celular está aberto?
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -53,7 +58,7 @@ function Header({ links, cartCount = 0 }) {
             <circle cx="17" cy="19.5" r="1.3" />
           </svg>
           <span className="visually-hidden">Itens no carrinho:</span>
-          <span className={styles.cartCount}>{cartCount}</span>
+          <span className={styles.cartCount}>{itemCount}</span>
         </p>
 
         <button
