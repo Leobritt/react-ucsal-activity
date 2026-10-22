@@ -1,14 +1,14 @@
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Accordion from './components/Accordion/Accordion.jsx'
 import Footer from './components/layout/Footer.jsx'
 import Header from './components/layout/Header.jsx'
 import Section from './components/layout/Section.jsx'
-import ToastContainer from './components/Toast/ToastContainer.jsx'
 import { FAQ_ITEMS } from './data/faq.js'
 import { CATEGORIES, PRODUCTS } from './data/products.js'
 import ExchangeRequest from './features/exchange/ExchangeRequest.jsx'
 import ProductCatalog from './features/products/ProductCatalog.jsx'
 import ProductDetails from './features/products/ProductDetails.jsx'
+import { useToast } from './hooks/useToast.js'
 import styles from './App.module.css'
 
 // Links do menu principal: cada um aponta para o id de uma seção da página.
@@ -26,43 +26,20 @@ const FAQ_ACCORDION_ITEMS = FAQ_ITEMS.map((item) => ({
   content: item.answer,
 }))
 
-// Quantos toasts podem aparecer ao mesmo tempo
-const MAX_VISIBLE_TOASTS = 4
-
 /**
  * Componente principal. Ele orquestra a página:
- *  - guarda o state compartilhado entre seções (produto selecionado,
- *    carrinho e notificações);
+ *  - guarda o state compartilhado entre seções (produto selecionado e carrinho);
  *  - passa esses dados e as funções que os alteram para os filhos via props.
  *
- * Nesta versão (v1-base), as notificações descem por props até quem precisa
- * delas ("prop drilling"). Na versão do desafio extra, isso vira Context API.
+ * As notificações agora vêm do ToastContext (Context API), pelo hook useToast.
  */
 function App() {
   const [selectedProductId, setSelectedProductId] = useState(PRODUCTS[0].id)
   const [cartItems, setCartItems] = useState([])
-  const [toasts, setToasts] = useState([])
-
-  // useRef para guardar o próximo id de toast: muda sem causar nova renderização
-  const nextToastId = useRef(1)
   const detailsSectionRef = useRef(null)
+  const { showToast } = useToast()
 
   const selectedProduct = PRODUCTS.find((product) => product.id === selectedProductId)
-
-  // ---------- Notificações ----------
-
-  // useCallback mantém a MESMA função entre renderizações.
-  // Isso importa porque showToast e dismissToast são dependências de useEffect
-  // em componentes filhos (Toast e ExchangeRequest): se a função mudasse
-  // a cada renderização, os efeitos rodariam de novo sem necessidade.
-  const showToast = useCallback(({ type, message, duration }) => {
-    const id = nextToastId.current++
-    setToasts((current) => [...current, { id, type, message, duration }].slice(-MAX_VISIBLE_TOASTS))
-  }, [])
-
-  const dismissToast = useCallback((id) => {
-    setToasts((current) => current.filter((toast) => toast.id !== id))
-  }, [])
 
   // ---------- Ações dos produtos ----------
 
@@ -152,8 +129,6 @@ function App() {
       </main>
 
       <Footer credit="Loja fictícia criada para a atividade de React de Tópicos Avançados em Programação (UCSal, 2026.2)." />
-
-      <ToastContainer toasts={toasts} onDismiss={dismissToast} />
     </>
   )
 }
