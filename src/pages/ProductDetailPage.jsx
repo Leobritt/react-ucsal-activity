@@ -29,6 +29,7 @@ function ProductDetailPage() {
 
   return (
     <Page
+      documentTitle={product.name}
       breadcrumb={
         <Breadcrumb
           items={[

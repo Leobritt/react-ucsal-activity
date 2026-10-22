@@ -13,6 +13,8 @@ const TOP_RATED_PRODUCTS = [...PRODUCTS].sort((a, b) => b.rating - a.rating).sli
 function HomePage() {
   return (
     <>
+      <title>Circuito | Eletrônicos para makers</title>
+
       <section aria-labelledby="hero-title" className={styles.hero}>
         <div className="container">
           <h1 id="hero-title" className={styles.heroTitle}>
