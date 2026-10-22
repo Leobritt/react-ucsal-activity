@@ -44,7 +44,7 @@ function ProductDetails({ product, headingLevel = 2 }) {
     },
     {
       id: 'specs',
-      label: 'Especificações',
+      label: 'Ficha técnica',
       content: (
         <dl className={styles.specs}>
           {product.specs.map((spec) => (

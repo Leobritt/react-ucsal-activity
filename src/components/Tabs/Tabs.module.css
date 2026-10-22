@@ -5,7 +5,6 @@
 /* No celular, se as abas não couberem, a lista rola na horizontal */
 .tabList {
   display: flex;
-  gap: var(--space-1);
   overflow-x: auto;
   border-bottom: 1px solid var(--color-line);
   scrollbar-width: thin;
@@ -14,7 +13,8 @@
 .tab {
   flex-shrink: 0;
   min-height: 44px;
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) 10px;
+  font-size: var(--text-sm); /* menor no celular para as abas caberem sem rolar */
   font-weight: 600;
   color: var(--color-ink-soft);
   background: none;
@@ -40,4 +40,15 @@
 
 .panel:focus-visible {
   border-radius: var(--radius-control);
+}
+
+@media (min-width: 600px) {
+  .tabList {
+    gap: var(--space-1);
+  }
+
+  .tab {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-base);
+  }
 }
