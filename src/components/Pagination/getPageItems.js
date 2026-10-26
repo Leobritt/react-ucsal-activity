@@ -1,15 +1,8 @@
-// Cria uma lista de números de "start" até "end" (inclusive): range(2, 5) → [2, 3, 4, 5]
 function range(start, end) {
   return Array.from({ length: end - start + 1 }, (_, index) => start + index)
 }
 
-/**
- * Decide quais botões de página mostrar.
- * Com poucas páginas, mostra todas. Com muitas, mostra a primeira, a última,
- * a atual com seus vizinhos e reticências no meio: 1 … 4 5 6 … 12
- */
 export function getPageItems(currentPage, totalPages, siblingCount = 1) {
-  // primeira + última + atual + 2 vizinhos + 2 reticências
   const maxVisibleItems = siblingCount * 2 + 5
 
   if (totalPages <= maxVisibleItems) {

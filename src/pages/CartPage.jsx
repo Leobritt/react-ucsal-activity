@@ -5,11 +5,6 @@ import { useToast } from '../hooks/useToast.js'
 import { formatCurrency } from '../utils/format.js'
 import styles from './CartPage.module.css'
 
-/**
- * Página do carrinho (rota "/carrinho").
- * Lê e altera o mesmo carrinho que o cabeçalho e os cartões de produto usam:
- * é o CartContext que mantém tudo sincronizado.
- */
 function CartPage() {
   const { items, itemCount, totalPrice, changeQuantity, removeFromCart, clearCart } = useCart()
   const { showToast } = useToast()
@@ -29,7 +24,6 @@ function CartPage() {
     showToast({ type: 'success', message: 'Pedido finalizado. Esta loja é fictícia: nenhum pagamento foi cobrado.' })
   }
 
-  // Carrinho vazio: em vez de uma tela em branco, um convite para a próxima ação
   if (items.length === 0) {
     return (
       <Page title="Carrinho" description="Seu carrinho está vazio.">
@@ -55,7 +49,6 @@ function CartPage() {
                 <p className={styles.unitPrice}>{formatCurrency(item.product.price)} cada</p>
               </div>
 
-              {/* fieldset + legend agrupam os botões: "Quantidade de <produto>" */}
               <fieldset className={styles.quantity}>
                 <legend className="visually-hidden">Quantidade de {item.product.name}</legend>
                 <button

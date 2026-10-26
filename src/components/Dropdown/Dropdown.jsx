@@ -2,26 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { useClickOutside } from '../../hooks/useClickOutside.js'
 import styles from './Dropdown.module.css'
 
-/**
- * MENU SUSPENSO
- * Um botão que abre uma lista de opções. Funciona de dois jeitos:
- *  - seleção: quando recebe "selectedValue", marca a opção escolhida
- *    (ex.: filtro de categoria) e mostra a escolha no botão;
- *  - ações: sem "selectedValue", cada opção só dispara sua ação
- *    (ex.: "Copiar link").
- *
- * Props:
- *  - label: texto do botão
- *  - options: lista de { value, label, onSelect? } — onSelect é o callback próprio da opção
- *  - selectedValue: valor selecionado (opcional, ativa o modo seleção)
- *  - onSelect: callback geral, recebe (value, option) quando qualquer opção é escolhida
- *  - align: 'start' ou 'end' — de que lado do botão a lista se alinha
- *
- * Fecha ao escolher uma opção, ao clicar fora (hook useClickOutside) e com Esc.
- * Teclado: ↓/↑ percorrem as opções, Home/End vão para a primeira/última.
- */
 function Dropdown({ label, options, selectedValue, onSelect, align = 'start' }) {
-  // State: a lista está aberta? e qual opção está com o foco?
   const [isOpen, setIsOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -34,14 +15,12 @@ function Dropdown({ label, options, selectedValue, onSelect, align = 'start' }) 
   const selectedIndex = options.findIndex((option) => option.value === selectedValue)
   const selectedOption = options[selectedIndex]
 
-  // Sempre que a lista abre ou a opção ativa muda, move o foco para ela
   useEffect(() => {
     if (isOpen) {
       optionRefs.current[activeIndex]?.focus()
     }
   }, [isOpen, activeIndex])
 
-  // Fecha ao clicar fora, mas só escuta cliques enquanto a lista está aberta
   useClickOutside(containerRef, () => setIsOpen(false), isOpen)
 
   function openMenu(startIndex) {
@@ -58,7 +37,6 @@ function Dropdown({ label, options, selectedValue, onSelect, align = 'start' }) 
     if (isOpen) {
       closeMenu()
     } else {
-      // Abre com o foco na opção selecionada (ou na primeira)
       openMenu(Math.max(selectedIndex, 0))
     }
   }
@@ -98,7 +76,6 @@ function Dropdown({ label, options, selectedValue, onSelect, align = 'start' }) 
         closeMenu({ returnFocus: true })
         break
       case 'Tab':
-        // Deixa o Tab seguir normalmente para o próximo elemento, só fecha a lista
         closeMenu()
         break
       default:
@@ -107,8 +84,8 @@ function Dropdown({ label, options, selectedValue, onSelect, align = 'start' }) 
   }
 
   function handleOptionClick(option) {
-    option.onSelect?.(option) // callback da própria opção, se existir
-    onSelect?.(option.value, option) // callback geral do componente, se existir
+    option.onSelect?.(option)
+    onSelect?.(option.value, option)
     closeMenu({ returnFocus: true })
   }
 
@@ -142,7 +119,6 @@ function Dropdown({ label, options, selectedValue, onSelect, align = 'start' }) 
         </svg>
       </button>
 
-      {/* Renderização condicional: a lista só existe no HTML enquanto está aberta */}
       {isOpen && (
         <ul
           id={menuId}

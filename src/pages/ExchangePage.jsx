@@ -1,9 +1,6 @@
 import Page from '../components/layout/Page.jsx'
 import ExchangeRequest from '../features/exchange/ExchangeRequest.jsx'
 
-/**
- * Página de solicitação de troca (rota "/trocas").
- */
 function ExchangePage() {
   return (
     <Page

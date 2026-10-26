@@ -7,7 +7,6 @@ import { formatCurrency } from '../../utils/format.js'
 import CategoryIcon from './CategoryIcon.jsx'
 import styles from './ProductDetails.module.css'
 
-// Estrelas em texto ("★★★★☆"); o leitor de tela recebe a nota por extenso
 function Stars({ rating }) {
   const filled = Math.round(rating)
   return (
@@ -18,24 +17,11 @@ function Stars({ rating }) {
   )
 }
 
-/**
- * Detalhes do produto selecionado, organizados em ABAS,
- * com um MENU SUSPENSO de ações para compartilhar.
- *
- * Props:
- *  - product: produto a exibir
- *  - headingLevel: nível do título com o nome do produto (padrão: 2).
- *    Na página do produto ele é o título principal, então vira h1.
- *
- * Carrinho e notificações vêm dos contextos (useCart e useToast), sem props.
- */
 function ProductDetails({ product, headingLevel = 2 }) {
-  // Componente com nome dinâmico: "h1", "h2"... (precisa começar com letra maiúscula no JSX)
   const HeadingTag = `h${headingLevel}`
   const { showToast } = useToast()
   const { addToCart } = useCart()
 
-  // Conteúdo de cada aba. Como "content" aceita JSX, cada aba tem seu próprio layout.
   const tabs = [
     {
       id: 'description',
@@ -75,13 +61,12 @@ function ProductDetails({ product, headingLevel = 2 }) {
     },
   ]
 
-  // Cada opção do menu tem o seu próprio callback (onSelect)
   const shareOptions = [
     {
       value: 'copy-link',
       label: 'Copiar link',
       onSelect: async () => {
-        const link = window.location.href // endereço da página deste produto
+        const link = window.location.href
         try {
           await navigator.clipboard.writeText(link)
           showToast({ type: 'success', message: 'Link copiado.' })

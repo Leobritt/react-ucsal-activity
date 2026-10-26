@@ -1,6 +1,3 @@
-// Dados fictícios da loja. Num projeto real, viriam de uma API.
-// As chaves das categorias ficam em inglês (código) e os rótulos em português (tela).
-
 export const CATEGORIES = [
   { value: 'all', label: 'Todas as categorias' },
   { value: 'boards', label: 'Placas' },
@@ -348,7 +345,6 @@ export const PRODUCTS = [
   },
 ]
 
-// Busca o rótulo em português de uma categoria a partir da chave em inglês.
 export function getCategoryLabel(categoryValue) {
   return CATEGORIES.find((category) => category.value === categoryValue)?.label ?? categoryValue
 }

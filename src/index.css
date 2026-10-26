@@ -1,28 +1,13 @@
-/*
-  Estilos globais da aplicação.
-  Aqui ficam: variáveis de design (cores, espaçamentos, tipografia), um reset
-  leve, estilos base de texto, foco visível e utilitários reaproveitados.
-  O estilo de cada componente fica no seu próprio arquivo .module.css.
-
-  Estratégia de responsividade: mobile-first.
-  Os estilos base valem para celular e as media queries ampliam o layout:
-    - a partir de 600px  → tablet
-    - a partir de 1024px → desktop
-  (variáveis CSS não funcionam dentro de @media, por isso os valores são repetidos.)
-*/
-
 :root {
-  /* Cores */
-  --color-ink: #17203a;          /* texto principal e cabeçalho */
-  --color-ink-soft: #55607a;     /* texto secundário */
-  --color-bg: #eef1f5;           /* fundo da página */
-  --color-surface: #ffffff;      /* fundo de painéis e cartões */
-  --color-line: #cdd3dd;         /* bordas e divisórias */
-  --color-accent: #b0125b;       /* magenta das embalagens antiestáticas: ações principais */
+  --color-ink: #17203a;
+  --color-ink-soft: #55607a;
+  --color-bg: #eef1f5;
+  --color-surface: #ffffff;
+  --color-line: #cdd3dd;
+  --color-accent: #b0125b;
   --color-accent-strong: #8c0c48;
   --color-accent-soft: #fbe4ef;
 
-  /* Cores de status (toasts, barra de progresso) */
   --color-success: #1d6b4e;
   --color-success-soft: #e1f2ea;
   --color-error: #b42318;
@@ -32,7 +17,6 @@
   --color-warning: #8a5a00;
   --color-warning-soft: #fdf1d8;
 
-  /* Tipografia: uma família só, variando largura e peso */
   --font-base: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -40,7 +24,6 @@
   --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 1.95rem);
   --text-display: clamp(2.25rem, 1.3rem + 3.8vw, 4rem);
 
-  /* Espaçamentos */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -50,7 +33,6 @@
   --space-7: 3rem;
   --space-8: 4.5rem;
 
-  /* Bordas: controles pequenos têm raio menor que painéis */
   --radius-control: 4px;
   --radius-panel: 10px;
 
@@ -61,7 +43,6 @@
   color-scheme: light;
 }
 
-/* ---------- Reset leve ---------- */
 *,
 *::before,
 *::after {
@@ -106,9 +87,7 @@ button {
   cursor: pointer;
 }
 
-/* ---------- Base ---------- */
 html {
-  /* Deixa espaço para o cabeçalho fixo ao navegar por âncoras (#produtos etc.) */
   scroll-padding-top: calc(var(--header-height) + var(--space-4));
 }
 
@@ -139,7 +118,7 @@ h3 {
 }
 
 p {
-  max-width: 68ch; /* linhas curtas são mais fáceis de ler */
+  max-width: 68ch;
 }
 
 a {
@@ -151,20 +130,17 @@ a:hover {
   color: var(--color-accent-strong);
 }
 
-/* Foco visível apenas para quem navega pelo teclado */
 :focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
   border-radius: var(--radius-control);
 }
 
-/* O <main> e os títulos recebem foco só por código (tabindex="-1"); não precisam de anel */
 [tabindex='-1']:focus {
   outline: none;
   box-shadow: none;
 }
 
-/* Respeita quem pediu ao sistema operacional para reduzir animações */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -176,9 +152,6 @@ a:hover {
   }
 }
 
-/* ---------- Utilitários ---------- */
-
-/* Esconde visualmente, mas mantém o texto para leitores de tela */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -191,7 +164,6 @@ a:hover {
   border: 0;
 }
 
-/* Link "Pular para o conteúdo": aparece só quando recebe foco pelo teclado */
 .skip-link {
   position: absolute;
   top: var(--space-2);
@@ -223,20 +195,19 @@ a:hover {
   }
 }
 
-/* ---------- Botões reutilizáveis ---------- */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 44px; /* área mínima de toque recomendada */
+  min-height: 44px;
   padding: var(--space-2) var(--space-4);
   font-weight: 600;
   line-height: 1.2;
   border: 1px solid transparent;
   border-radius: var(--radius-control);
   background: none;
-  text-decoration: none; /* links com cara de botão não ficam sublinhados */
+  text-decoration: none;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 

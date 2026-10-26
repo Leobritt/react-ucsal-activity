@@ -29,7 +29,6 @@
   font-size: var(--text-sm);
 }
 
-/* Estiliza o botão nativo "Escolher arquivo" sem trocar o input por um falso */
 .input::file-selector-button {
   min-height: 44px;
   margin-right: var(--space-3);

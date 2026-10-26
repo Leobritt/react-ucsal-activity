@@ -1,33 +1,13 @@
 import { useId, useState } from 'react'
 import styles from './Accordion.module.css'
 
-/**
- * ACORDEÃO
- * Lista de itens que abrem e fecham ao clicar no título.
- * Só um item fica aberto por vez: abrir um item fecha o anterior.
- *
- * Props:
- *  - items: lista de { id, title, content }
- *  - defaultOpenId: id do item que começa aberto (opcional)
- *  - headingLevel: nível dos títulos (padrão: 3). Use o nível logo abaixo
- *    do título da seção onde o acordeão está, para não pular níveis.
- *
- * Acessibilidade:
- *  - cada título é um <button> dentro de um <h2>/<h3>..., então funciona com Tab, Enter e Espaço
- *  - aria-expanded informa se o item está aberto
- *  - aria-controls liga o botão ao painel; o painel é um <section> nomeado pelo botão
- */
 function Accordion({ items, defaultOpenId = null, headingLevel = 3 }) {
-  const HeadingTag = `h${headingLevel}` // "h2", "h3"... vira a tag do título
-  // State: id do item aberto (null = todos fechados)
+  const HeadingTag = `h${headingLevel}`
   const [openItemId, setOpenItemId] = useState(defaultOpenId)
 
-  // useId gera um prefixo único, assim os ids não se repetem
-  // mesmo que existam dois acordeões na mesma página.
   const baseId = useId()
 
   function handleToggle(itemId) {
-    // Clicar no item aberto fecha; clicar em outro abre esse e fecha o anterior
     setOpenItemId((currentId) => (currentId === itemId ? null : itemId))
   }
 
@@ -56,11 +36,6 @@ function Accordion({ items, defaultOpenId = null, headingLevel = 3 }) {
               </button>
             </HeadingTag>
 
-            {/*
-              O painel continua no HTML mesmo fechado: é isso que permite a animação.
-              Fechado, ele fica com visibility: hidden (no CSS), o que também o esconde
-              de leitores de tela e da navegação por Tab.
-            */}
             <section
               id={panelId}
               aria-labelledby={buttonId}

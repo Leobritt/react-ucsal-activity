@@ -4,7 +4,6 @@
   gap: var(--space-5);
 }
 
-/* Celular: filtros um embaixo do outro, ocupando a largura toda */
 .toolbar {
   display: grid;
   gap: var(--space-3);
@@ -15,7 +14,6 @@
   color: var(--color-ink-soft);
 }
 
-/* Grade de produtos: 1 coluna no celular, 2 no tablet, 4 no desktop */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -37,7 +35,6 @@
     align-items: center;
   }
 
-  /* O texto de contagem vai para a direita */
   .count {
     margin-left: auto;
   }

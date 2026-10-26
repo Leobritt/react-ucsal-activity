@@ -2,7 +2,6 @@
   min-width: 0;
 }
 
-/* No celular, se as abas não couberem, a lista rola na horizontal */
 .tabList {
   display: flex;
   overflow-x: auto;
@@ -14,14 +13,14 @@
   flex-shrink: 0;
   min-height: 44px;
   padding: var(--space-2) 10px;
-  font-size: var(--text-sm); /* menor no celular para as abas caberem sem rolar */
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-ink-soft);
   background: none;
   border: 0;
   border-bottom: 3px solid transparent;
   border-radius: var(--radius-control) var(--radius-control) 0 0;
-  margin-bottom: -1px; /* a borda da aba ativa cobre a linha de baixo */
+  margin-bottom: -1px;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 

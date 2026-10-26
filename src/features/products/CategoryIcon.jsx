@@ -1,4 +1,3 @@
-// Desenhos simples (traço) que representam cada categoria no lugar de fotos.
 const ICON_PATHS = {
   boards:
     'M14 14h20v20H14z M19 8v6 M24 8v6 M29 8v6 M19 34v6 M24 34v6 M29 34v6 M8 19h6 M8 24h6 M8 29h6 M34 19h6 M34 24h6 M34 29h6',
@@ -8,10 +7,6 @@ const ICON_PATHS = {
   kits: 'M8 16l16-8 16 8v18l-16 8-16-8z M8 16l16 8 16-8 M24 24v18',
 }
 
-/**
- * Ícone da categoria do produto. É decorativo (aria-hidden),
- * porque o nome da categoria já aparece em texto ao lado.
- */
 function CategoryIcon({ category, className }) {
   return (
     <svg className={className} viewBox="0 0 48 48" aria-hidden="true">

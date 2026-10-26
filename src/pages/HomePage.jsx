@@ -4,12 +4,8 @@ import { PRODUCTS } from '../data/products.js'
 import ProductCard from '../features/products/ProductCard.jsx'
 import styles from './HomePage.module.css'
 
-// Os 4 produtos com a maior nota, calculados uma vez só (os dados não mudam)
 const TOP_RATED_PRODUCTS = [...PRODUCTS].sort((a, b) => b.rating - a.rating).slice(0, 4)
 
-/**
- * Página inicial (rota "/"): apresentação da loja e produtos em destaque.
- */
 function HomePage() {
   return (
     <>
@@ -26,7 +22,6 @@ function HomePage() {
             por aqui.
           </p>
           <div className={styles.heroActions}>
-            {/* <Link> troca de página sem recarregar o site */}
             <Link to="/produtos" className="button button--primary">
               Ver produtos
             </Link>
@@ -36,13 +31,6 @@ function HomePage() {
           </div>
         </div>
 
-        {/*
-          Desenho decorativo de uma trilha de circuito; escondido de leitores de tela.
-          preserveAspectRatio="none": a trilha estica na largura, mas a altura fica fixa
-          (definida no CSS), para não crescer em telas largas e cobrir os botões.
-          Os "pads" são traços de comprimento zero com ponta redonda: com
-          vector-effect: non-scaling-stroke eles continuam redondos mesmo esticados.
-        */}
         <svg className={styles.trace} viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
           <path className={styles.traceLine} d="M0 60 H420 L460 20 H900 L930 50 H1200" />
           <path className={styles.padOuter} d="M460 20 h0.01 M930 50 h0.01" />

@@ -3,25 +3,11 @@ import { Link, NavLink } from 'react-router'
 import { useCart } from '../../hooks/useCart.js'
 import styles from './Header.module.css'
 
-/**
- * Cabeçalho fixo com a marca e o menu de navegação.
- * No celular o menu fica recolhido atrás do botão "Menu";
- * a partir do tablet os links aparecem sempre (controlado pelo CSS).
- *
- * Props:
- *  - links: lista de { to, label } exibidos no menu
- *
- * A quantidade do carrinho vem do CartContext (useCart): o cabeçalho e os
- * cartões de produto não têm relação direta, mas enxergam o mesmo carrinho.
- */
 function Header({ links }) {
   const { itemCount } = useCart()
 
-  // State local: o menu do celular está aberto?
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Fecha o menu com a tecla Esc. O listener só existe enquanto o menu está aberto,
-  // e a função de limpeza remove o listener quando o menu fecha ou o componente sai da tela.
   useEffect(() => {
     if (!isMenuOpen) return
 
@@ -34,7 +20,6 @@ function Header({ links }) {
   }, [isMenuOpen])
 
   function toggleMenu() {
-    // Forma funcional do setState: usa o valor anterior para calcular o próximo
     setIsMenuOpen((wasOpen) => !wasOpen)
   }
 
@@ -52,7 +37,6 @@ function Header({ links }) {
           Circuito
         </Link>
 
-        {/* Link para a página do carrinho; o leitor de tela ouve "Carrinho: 2 itens" */}
         <Link to="/carrinho" className={styles.cart} onClick={closeMenu}>
           <svg className={styles.cartIcon} viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 4h2l2.4 10.2a1.5 1.5 0 0 0 1.5 1.1h8.4a1.5 1.5 0 0 0 1.4-1l2-6.3H6.2" />
@@ -84,7 +68,6 @@ function Header({ links }) {
           <ul className={styles.navList}>
             {links.map((link) => (
               <li key={link.to}>
-                {/* NavLink marca o link da página atual com aria-current="page" */}
                 <NavLink to={link.to} className={styles.navLink} onClick={closeMenu}>
                   {link.label}
                 </NavLink>

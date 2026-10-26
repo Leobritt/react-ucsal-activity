@@ -49,11 +49,6 @@
   transform: rotate(180deg);
 }
 
-/*
-  Transição suave de altura: o painel é um grid com uma linha que vai de 0fr
-  (altura zero) até 1fr (altura do conteúdo). Diferente de height: auto,
-  grid-template-rows pode ser animado.
-*/
 .panel {
   display: grid;
   grid-template-rows: 0fr;

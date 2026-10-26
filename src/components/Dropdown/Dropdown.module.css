@@ -53,7 +53,6 @@
   transform: rotate(180deg);
 }
 
-/* ---------- Lista de opções ---------- */
 .menu {
   position: absolute;
   top: calc(100% + var(--space-1));
@@ -98,7 +97,6 @@
   border-radius: var(--radius-control);
 }
 
-/* A opção com foco (teclado ou mouse) ganha fundo destacado */
 .option:focus,
 .option:hover {
   outline: none;

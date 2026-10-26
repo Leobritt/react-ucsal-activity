@@ -10,7 +10,6 @@
   color: var(--color-ink-soft);
 }
 
-/* Barra entre os itens, desenhada pelo CSS (não é lida pelo leitor de tela) */
 .item + .item::before {
   content: '/';
   margin-right: var(--space-2);

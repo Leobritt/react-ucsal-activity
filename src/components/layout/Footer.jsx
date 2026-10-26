@@ -1,9 +1,5 @@
 import styles from './Footer.module.css'
 
-/**
- * Rodapé da página. Componente simples, sem state:
- * só recebe o texto do crédito via props.
- */
 function Footer({ credit }) {
   return (
     <footer className={styles.footer}>

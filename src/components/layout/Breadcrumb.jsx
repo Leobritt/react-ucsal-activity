@@ -1,12 +1,6 @@
 import { Link } from 'react-router'
 import styles from './Breadcrumb.module.css'
 
-/**
- * Trilha de navegação ("Início / Produtos / Nome do produto").
- *
- * Props:
- *  - items: lista de { label, to }. O último item é a página atual e não tem link.
- */
 function Breadcrumb({ items }) {
   return (
     <nav aria-label="Trilha de navegação" className={styles.breadcrumb}>

@@ -1,20 +1,7 @@
 import { getPageItems } from './getPageItems.js'
 import styles from './Pagination.module.css'
 
-/**
- * PAGINAÇÃO
- * Componente "controlado": ele não guarda a página atual no próprio state.
- * Quem usa o componente guarda a página e a recebe de volta pelo callback,
- * assim o componente pai decide o que fazer (filtrar a lista, rolar a tela...).
- *
- * Props:
- *  - currentPage: página atual (começa em 1)
- *  - totalPages: número total de páginas
- *  - onPageChange: função chamada com o número da nova página
- *  - label: nome da navegação para leitores de tela (opcional)
- */
 function Pagination({ currentPage, totalPages, onPageChange, label = 'Paginação' }) {
-  // Com uma página só, não há para onde navegar
   if (totalPages <= 1) return null
 
   const isFirstPage = currentPage === 1
@@ -49,7 +36,6 @@ function Pagination({ currentPage, totalPages, onPageChange, label = 'Paginaçã
                 type="button"
                 className={styles.button}
                 onClick={() => goToPage(item)}
-                // aria-current="page" avisa ao leitor de tela qual é a página atual
                 aria-current={item === currentPage ? 'page' : undefined}
                 aria-label={`Página ${item}`}
               >
@@ -77,7 +63,6 @@ function Pagination({ currentPage, totalPages, onPageChange, label = 'Paginaçã
         </svg>
       </button>
 
-      {/* Anuncia a mudança de página para leitores de tela */}
       <p className="visually-hidden" aria-live="polite">
         Página {currentPage} de {totalPages}
       </p>

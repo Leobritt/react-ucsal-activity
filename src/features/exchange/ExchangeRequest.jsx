@@ -4,42 +4,26 @@ import { useToast } from '../../hooks/useToast.js'
 import { formatFileSize } from '../../utils/format.js'
 import styles from './ExchangeRequest.module.css'
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const TICK_INTERVAL_MS = 200
 
-/**
- * Formulário de solicitação de troca, com envio de foto SIMULADO.
- * Usa a BARRA DE PROGRESSO para mostrar o andamento do envio
- * e avisa o resultado com TOASTS.
- *
- * Não recebe props: as notificações vêm do contexto, pelo hook useToast.
- */
 function ExchangeRequest() {
   const { showToast } = useToast()
 
-  // State do envio:
-  //  file     → arquivo escolhido (ou null)
-  //  progress → 0 a 100
-  //  status   → 'idle' (parado) | 'uploading' | 'done' | 'canceled'
   const [file, setFile] = useState(null)
   const [progress, setProgress] = useState(0)
   const [status, setStatus] = useState('idle')
   const inputId = useId()
   const hintId = useId()
-  // Referência ao <input type="file">, para limpá-lo no "Enviar outra foto"
   const fileInputRef = useRef(null)
 
-  // Enquanto o status for "uploading", um timer soma um pouco ao progresso
-  // a cada 200 ms. Quando chega a 100%, o próprio timer encerra o envio e
-  // avisa com um toast. A função de limpeza (clearInterval) para o timer se
-  // o status mudar antes (ex.: envio cancelado) ou se o componente sair da tela.
   useEffect(() => {
     if (status !== 'uploading') return
 
     let currentProgress = 0
     const intervalId = setInterval(() => {
-      const step = 3 + Math.random() * 9 // passos irregulares, como uma rede de verdade
+      const step = 3 + Math.random() * 9
       currentProgress = Math.min(currentProgress + step, 100)
       setProgress(currentProgress)
 
@@ -60,13 +44,12 @@ function ExchangeRequest() {
     const selectedFile = event.target.files[0]
     if (!selectedFile) return
 
-    // Validações: tipo e tamanho do arquivo
     if (!ACCEPTED_TYPES.includes(selectedFile.type)) {
       showToast({
         type: 'error',
         message: `"${selectedFile.name}" não é uma imagem aceita. Envie um arquivo JPG, PNG ou WEBP.`,
       })
-      event.target.value = '' // limpa o campo para permitir escolher de novo
+      event.target.value = ''
       return
     }
 
@@ -94,7 +77,7 @@ function ExchangeRequest() {
   }
 
   function handleSubmit(event) {
-    event.preventDefault() // impede o navegador de recarregar a página
+    event.preventDefault()
     if (status !== 'uploading') startUpload()
   }
 
@@ -107,14 +90,12 @@ function ExchangeRequest() {
     setFile(null)
     setProgress(0)
     setStatus('idle')
-    // O valor de um input de arquivo só pode ser limpo direto no elemento
     if (fileInputRef.current) fileInputRef.current.value = ''
     fileInputRef.current?.focus()
   }
 
   const isUploading = status === 'uploading'
 
-  // Texto e cor da barra conforme o status
   const progressLabel = {
     uploading: `Enviando ${file?.name}`,
     done: `${file?.name} enviada`,
@@ -149,15 +130,8 @@ function ExchangeRequest() {
         )}
       </div>
 
-      {/* A barra só aparece depois que o envio começa */}
       {status !== 'idle' && <ProgressBar value={progress} label={progressLabel} tone={progressTone} />}
 
-      {/*
-        Os três botões ocupam o mesmo lugar, então o React reaproveita o mesmo
-        elemento <button> e só troca texto e função. Por isso todos são type="button":
-        se o tipo mudasse de "button" para "submit" durante o clique, o navegador
-        enviaria o formulário logo depois (ex.: "Cancelar" recomeçaria o envio).
-      */}
       <div className={styles.actions}>
         {isUploading ? (
           <button type="button" className="button button--secondary" onClick={handleCancel}>

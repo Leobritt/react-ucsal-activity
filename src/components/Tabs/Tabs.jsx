@@ -1,30 +1,12 @@
 import { useId, useRef, useState } from 'react'
 import styles from './Tabs.module.css'
 
-/**
- * ABAS
- * Organiza conteúdos em painéis; só o painel da aba ativa aparece.
- *
- * Props:
- *  - tabs: lista de { id, label, content } — content pode ser qualquer JSX
- *  - defaultTabId: aba que começa ativa (padrão: a primeira)
- *  - label: nome do grupo de abas para leitores de tela
- *
- * Acessibilidade (padrão de abas da WAI-ARIA):
- *  - role="tablist", "tab" e "tabpanel", com aria-selected na aba ativa
- *  - só a aba ativa entra no Tab do teclado; as setas ← → trocam de aba,
- *    Home vai para a primeira e End para a última
- */
 function Tabs({ tabs, defaultTabId, label }) {
-  // State: qual aba está ativa
   const [activeTabId, setActiveTabId] = useState(defaultTabId ?? tabs[0]?.id)
 
-  // useRef guarda referências aos botões das abas, para mover o foco pelo teclado.
-  // Diferente do state, mudar uma ref não faz o componente renderizar de novo.
   const tabRefs = useRef([])
   const baseId = useId()
 
-  // Se a lista de abas mudar e a aba ativa não existir mais, volta para a primeira
   const activeTab = tabs.find((tab) => tab.id === activeTabId) ?? tabs[0]
   const activeIndex = tabs.indexOf(activeTab)
 
@@ -44,7 +26,7 @@ function Tabs({ tabs, defaultTabId, label }) {
 
     const action = keyActions[event.key]
     if (action) {
-      event.preventDefault() // evita rolar a página com Home/End
+      event.preventDefault()
       action()
     }
   }
@@ -76,7 +58,6 @@ function Tabs({ tabs, defaultTabId, label }) {
         })}
       </div>
 
-      {/* Só o conteúdo da aba ativa é exibido */}
       <div
         role="tabpanel"
         id={`${baseId}-panel-${activeTab.id}`}

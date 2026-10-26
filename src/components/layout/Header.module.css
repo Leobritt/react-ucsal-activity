@@ -39,7 +39,6 @@
   stroke-linejoin: round;
 }
 
-/* ---------- Carrinho ---------- */
 .cart {
   display: inline-flex;
   align-items: center;
@@ -77,7 +76,6 @@
   border-radius: 999px;
 }
 
-/* ---------- Botão do menu (só no celular) ---------- */
 .menuButton {
   display: inline-flex;
   align-items: center;
@@ -91,7 +89,6 @@
   border-radius: var(--radius-control);
 }
 
-/* Ícone de três linhas que vira um "X" quando o menu abre */
 .menuIcon,
 .menuIcon::before,
 .menuIcon::after {
@@ -133,9 +130,6 @@
   transform: translateY(-6px) rotate(-45deg);
 }
 
-/* ---------- Navegação ---------- */
-
-/* Celular: painel que aparece abaixo do cabeçalho */
 .nav {
   display: none;
   position: absolute;
@@ -168,7 +162,6 @@
   color: #f9c2dc;
 }
 
-/* Página atual: sublinhado na cor de destaque */
 .navLink[aria-current='page'] {
   text-decoration: underline;
   text-decoration-color: #f06aa8;
@@ -176,7 +169,6 @@
   text-underline-offset: 0.45em;
 }
 
-/* Tablet e desktop: links sempre visíveis, botão do menu escondido */
 @media (min-width: 600px) {
   .menuButton {
     display: none;
@@ -199,8 +191,6 @@
     padding: var(--space-2) 0;
   }
 
-  /* No HTML o carrinho vem antes do menu (ordem do Tab no celular);
-     no tablet/desktop o "order" coloca os links antes do carrinho na tela */
   .nav {
     order: 1;
     margin-left: auto;

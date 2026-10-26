@@ -32,14 +32,12 @@
   border-color: var(--color-ink);
 }
 
-/* Página atual: destacada pela cor e pelo aria-current */
 .button[aria-current='page'] {
   color: var(--color-surface);
   background: var(--color-ink);
   border-color: var(--color-ink);
 }
 
-/* Anterior/Próxima desabilitados nas pontas */
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.4;
@@ -63,7 +61,6 @@
   color: var(--color-ink-soft);
 }
 
-/* No celular, "Anterior" e "Próxima" viram só a seta para caber tudo numa linha */
 .stepText {
   position: absolute;
   width: 1px;

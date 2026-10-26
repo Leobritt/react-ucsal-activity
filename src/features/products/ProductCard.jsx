@@ -5,15 +5,6 @@ import { formatCurrency } from '../../utils/format.js'
 import CategoryIcon from './CategoryIcon.jsx'
 import styles from './ProductCard.module.css'
 
-/**
- * Cartão de um produto no catálogo.
- * Não tem state: o produto chega por props, "Ver detalhes" é um link
- * para a página do produto e "Adicionar" usa o carrinho global (useCart).
- *
- * Props:
- *  - product: objeto do produto
- *  - headingLevel: nível do título com o nome (padrão: 3)
- */
 function ProductCard({ product, headingLevel = 3 }) {
   const HeadingTag = `h${headingLevel}`
   const { addToCart } = useCart()

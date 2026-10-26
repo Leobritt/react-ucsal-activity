@@ -1,4 +1,3 @@
-/* Celular e tablet: resumo em cima, abas embaixo */
 .details {
   display: grid;
   gap: var(--space-6);
@@ -87,10 +86,9 @@
 }
 
 .tabsArea {
-  min-width: 0; /* deixa a lista de abas rolar em vez de esticar a coluna */
+  min-width: 0;
 }
 
-/* ---------- Conteúdo das abas ---------- */
 .description {
   color: var(--color-ink-soft);
 }
@@ -148,7 +146,6 @@
   }
 }
 
-/* Desktop: resumo à esquerda, abas à direita */
 @media (min-width: 1024px) {
   .details {
     grid-template-columns: 340px 1fr;

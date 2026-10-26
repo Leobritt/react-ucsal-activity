@@ -1,4 +1,3 @@
-// Perguntas frequentes usadas pelo componente Accordion.
 export const FAQ_ITEMS = [
   {
     id: 'shipping-time',
